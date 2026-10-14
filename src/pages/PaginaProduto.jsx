@@ -80,7 +80,7 @@ export default function PaginaProduto({
             {produto.estoque > 0 ? `${produto.estoque} unidades disponíveis` : 'Produto esgotado'}
           </p>
 
-          {produto.estoque === 0 && produtoTemPreco(produto) && (
+          {produto.estoque === 0 && (
             <form className="form-aviso" onSubmit={registrarEspera}>
               <label className="rotulo" htmlFor="nome-aviso">
                 Receber aviso quando voltar

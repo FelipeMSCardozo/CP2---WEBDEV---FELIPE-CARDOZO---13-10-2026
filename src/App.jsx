@@ -36,8 +36,13 @@ export default function App() {
       .finally(() => setCarregando(false))
 
     buscarClientes().then((dados) => {
-      setClientes(dados)
-      if (dados.length > 0) setClienteAtualId(dados[0].id)
+      const clientesNormalizados = dados.map((cliente) => ({
+        ...cliente,
+        pedidosAnteriores: 0,
+      }))
+
+      setClientes(clientesNormalizados)
+      if (clientesNormalizados.length > 0) setClienteAtualId(clientesNormalizados[0].id)
     })
   }, [])
 

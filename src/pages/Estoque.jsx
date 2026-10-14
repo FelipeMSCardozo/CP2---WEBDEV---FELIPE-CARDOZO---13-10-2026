@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import { formatarPreco } from '../utils/formatarPreco'
 import { produtoTemPreco } from '../utils/produtos'
 
@@ -135,7 +136,16 @@ export default function Estoque({ produtos, listaEspera = {}, produtosSemPreco =
             <tbody>
               {ordenados.map((produto) => (
                 <tr key={produto.id}>
-                  <td>{produto.title}</td>
+                  <td>
+                    <div className="estoque-produto-acoes">
+                      <Link to={`/produto/${produto.id}`}>{produto.title}</Link>
+                      {produto.estoque === 0 && (
+                        <Link to={`/produto/${produto.id}`} className="botao botao-pequeno botao-secundario">
+                          Avise-me quando chegar
+                        </Link>
+                      )}
+                    </div>
+                  </td>
                   <td>{produto.category}</td>
                   <td>{produto.estoque}</td>
                   <td>
