@@ -5,6 +5,8 @@ import { mensagemFreteGratis, produtoTemPreco } from '../utils/produtos'
 export default function ProdutoCard({ produto, onAdicionar }) {
   const esgotado = produto.estoque === 0
   const temPreco = produtoTemPreco(produto)
+  const valorProduto = temPreco ? Number(produto.price) : 0
+  const freteGratis = temPreco && valorProduto >= 200
 
   return (
     <article className="card">
@@ -27,9 +29,7 @@ export default function ProdutoCard({ produto, onAdicionar }) {
       </div>
 
       <div className="card-selos">
-        {temPreco && Number(produto.price) > 100 && (
-          <span className="selo selo-frete">Frete grátis</span>
-        )}
+        {freteGratis && <span className="selo selo-frete">Frete grátis</span>}
         {esgotado && <span className="selo selo-esgotado">Esgotado</span>}
         {!temPreco && <span className="selo selo-alerta">Sem preço</span>}
       </div>
@@ -46,8 +46,8 @@ export default function ProdutoCard({ produto, onAdicionar }) {
         </button>
       )}
 
-      {temPreco && Number(produto.price) <= 200 && (
-        <p className="mensagem-frete-card">{mensagemFreteGratis(Number(produto.price))}</p>
+      {temPreco && !freteGratis && (
+        <p className="mensagem-frete-card">{mensagemFreteGratis(valorProduto)}</p>
       )}
     </article>
   )
